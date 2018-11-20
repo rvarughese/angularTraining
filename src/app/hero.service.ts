@@ -23,6 +23,11 @@ export class HeroService {
         catchError(this.handleError('getHeroes', [])));
   }
 
+  /** Log a HeroService message with the MessageService */
+  private log(message: string) {
+    this.messageService.add(`HeroService: ${message}`);
+  }
+
   /**
  * Handle Http operation that failed.
  * Let the app continue.
