@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Hero } from './hero';
 import { HEROES } from './mock-heroes';
 import { Observable, of } from 'rxjs';
-//import { MessageService } from './message.service';
+import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
@@ -11,10 +11,12 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class HeroService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private messageService: MessageService) { }
+
   private heroesUrl = 'api/heroes';  // URL to web api
 
   getHeroes(): Observable<Hero[]> {
+    this.messageService.add('Hero Service : fetched Heroes');
     return this.http.get<Hero[]>(this.heroesUrl)
       .pipe(
         tap(heroes => console.log('fetched heroes')),
